@@ -2,6 +2,6 @@ import { MarketplacePage } from "@/components/MarketplacePage";
 
 export const dynamic = "force-dynamic";
 
-export default function Home() {
-  return <MarketplacePage view="home" />;
+export default function AnnouncementsPage() {
+  return <MarketplacePage view="announcements" />;
 }

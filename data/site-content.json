@@ -1,0 +1,224 @@
+{
+  "brand": {
+    "name": "아이온2 키나 거래소",
+    "shortName": "AION2 KINA",
+    "logoUrl": "https://fizz-download.playnccdn.com/download/v2/buckets/purple/files/19912837684-7f24d48d-b1c8-422a-8a36-f6009a287f32",
+    "logoAlt": "아이온2 키나 거래소 로고",
+    "heroImageUrl": "/kina-market-hero.png",
+    "heroImageAlt": "키나 거래소 시세 보드와 코인 이미지",
+    "noticeTitle": "거래 전 확인",
+    "noticeBody": "모든 거래는 담당 상담원 확인 후 진행됩니다. 제3자 명의 입금, 사칭 계정, 대리 송금 요청은 처리하지 않습니다.",
+    "kakaoId": "PL002",
+    "kakaoUrl": "https://open.kakao.com/"
+  },
+  "navigation": [
+    {
+      "label": "시세",
+      "href": "#rates"
+    },
+    {
+      "label": "판매 목록",
+      "href": "#sellers"
+    },
+    {
+      "label": "서비스",
+      "href": "#services"
+    },
+    {
+      "label": "상담",
+      "href": "#support"
+    }
+  ],
+  "hero": {
+    "eyebrow": "",
+    "title": "아이온 키나 거래소",
+    "subtitle": "매입가와 매도가를 한 화면에서 확인하고, 서버별 판매 목록과 상담 흐름까지 한 번에 이어집니다.",
+    "primaryCta": "카카오톡 상담",
+    "secondaryCta": "판매 목록 보기",
+    "trustBadges": [
+      "24시간 상담",
+      "담당자 확인 거래",
+      "서버별 시세 반영"
+    ],
+    "stats": [
+      {
+        "label": "거래 단위",
+        "value": "100만",
+        "helper": "키나 기준"
+      },
+      {
+        "label": "응답",
+        "value": "실시간",
+        "helper": "카카오톡 상담"
+      },
+      {
+        "label": "운영",
+        "value": "상시",
+        "helper": "연중무휴"
+      }
+    ]
+  },
+  "noticeModal": {
+    "enabled": true,
+    "title": "공지사항",
+    "body": "안녕하세요! 아이온2 키나 거래소입니다. (키나 문의는 카카오톡 PL002 or 밑에 문의하기 클릭해주세요)\n\n3자사기 및 개인 기타 사기 방지를 위해 고지드립니다.\n\n본 사이트관리자는 거래 당사자 외 제3자의 행위로 발생한 문제에 대해\n어떠한 책임도 지지 않습니다.",
+    "buttonLabel": "확인"
+  },
+  "market": {
+    "title": "키나 매입 / 매도",
+    "description": "시장 상황에 따라 실시간으로 조정되는 기준 시세입니다.",
+    "baseUnit": "100만 키나 기준",
+    "updatedAt": "방금 업데이트",
+    "buy": {
+      "label": "키나 매입",
+      "price": "2,400원",
+      "unit": "100만 키나",
+      "change": "+15원 (+0.6%)",
+      "trend": "up"
+    },
+    "sell": {
+      "label": "키나 매도",
+      "price": "3,000원",
+      "unit": "100만 키나",
+      "change": "-10원 (-0.3%)",
+      "trend": "down"
+    },
+    "notes": [
+      "최소 거래 단위는 100만 키나입니다.",
+      "시세는 서버 재고와 거래량에 따라 변동될 수 있습니다.",
+      "상담원 확인 전 입금은 진행하지 않습니다."
+    ]
+  },
+  "exchanges": [
+    {
+      "id": "world",
+      "title": "월드 거래소 가격",
+      "description": "월드 단위 거래가 필요한 경우 우선 확인하는 기준표입니다.",
+      "buyLabel": "매입가",
+      "buyPrice": "2,400원",
+      "sellLabel": "매도가",
+      "sellPrice": "3,000원",
+      "unit": "100만 키나 기준",
+      "features": [
+        "월드 서버 간 거래 가능",
+        "대량 거래 상담 지원"
+      ]
+    },
+    {
+      "id": "server",
+      "title": "일반 거래소 가격",
+      "description": "서버 내 거래를 빠르게 처리하기 위한 기준표입니다.",
+      "buyLabel": "매입가",
+      "buyPrice": "2,400원",
+      "sellLabel": "매도가",
+      "sellPrice": "3,000원",
+      "unit": "100만 키나 기준",
+      "features": [
+        "서버 내 거래 전용",
+        "빠른 재고 확인"
+      ]
+    }
+  ],
+  "sellers": [
+    {
+      "id": "seller-1",
+      "server": "젠카카",
+      "seller": "젠카카***",
+      "price": "3,200원",
+      "unit": "100만 키나",
+      "amount": "3,000만 키나",
+      "timeAgo": "8시간 전",
+      "contactLabel": "연락하기",
+      "featured": true
+    },
+    {
+      "id": "seller-2",
+      "server": "무닌",
+      "seller": "Eth***",
+      "price": "2,800원",
+      "unit": "100만 키나",
+      "amount": "2,000만 키나",
+      "timeAgo": "9시간 전",
+      "contactLabel": "연락하기",
+      "featured": false
+    },
+    {
+      "id": "seller-3",
+      "server": "포에타",
+      "seller": "쏘미***",
+      "price": "3,300원",
+      "unit": "100만 키나",
+      "amount": "5,000만 키나",
+      "timeAgo": "1일 전",
+      "contactLabel": "연락하기",
+      "featured": false
+    },
+    {
+      "id": "seller-4",
+      "server": "엘리시움",
+      "seller": "메이***",
+      "price": "3,050원",
+      "unit": "100만 키나",
+      "amount": "1억 키나",
+      "timeAgo": "1일 전",
+      "contactLabel": "연락하기",
+      "featured": true
+    }
+  ],
+  "services": [
+    {
+      "id": "sell-kina",
+      "title": "키나 판매 접수",
+      "description": "판매 가능한 수량과 서버를 확인한 뒤 상담으로 연결합니다.",
+      "bullets": [
+        "판매 목록 등록",
+        "가격 조율 상담",
+        "거래 진행 안내"
+      ],
+      "actionLabel": "판매 문의",
+      "href": "#support"
+    },
+    {
+      "id": "market-quote",
+      "title": "시세 상담",
+      "description": "서버별 재고와 수요를 기준으로 거래 가능 금액을 확인합니다.",
+      "bullets": [
+        "월드/일반 구분",
+        "대량 거래 확인",
+        "실시간 변동 안내"
+      ],
+      "actionLabel": "시세 문의",
+      "href": "#rates"
+    },
+    {
+      "id": "bus",
+      "title": "육성버스",
+      "description": "파티 모집과 육성 지원 상담을 함께 운영합니다.",
+      "bullets": [
+        "모집 일정 확인",
+        "역할별 매칭",
+        "진행 가능 시간 안내"
+      ],
+      "actionLabel": "육성 상담",
+      "href": "#support"
+    }
+  ],
+  "support": {
+    "title": "카카오톡 상담",
+    "description": "거래 가능 여부와 서버 재고를 상담원에게 바로 확인하세요.",
+    "hours": "24시간 연중무휴",
+    "response": "상담 가능 시 순차 응답",
+    "kakaoLabel": "카카오톡으로 문의하기",
+    "kakaoImageUrl": "/kakao-talk-icon-transparent.png"
+  },
+  "footer": {
+    "companyName": "아이온2 키나 거래소",
+    "description": "안전하고 신속한 키나 거래 상담 서비스를 제공합니다.",
+    "links": [
+      "회사 소개",
+      "이용약관",
+      "개인정보처리방침"
+    ],
+    "copyright": "© 2026 아이온2 키나 거래소. All rights reserved."
+  }
+}
