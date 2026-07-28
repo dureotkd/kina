@@ -695,6 +695,11 @@ function MarketPanel({
           value={content.market.description}
           onChange={(description) => updateMarket({ description })}
         />
+        <TextInput
+          label="결제 안내"
+          value={content.market.paymentNotice}
+          onChange={(paymentNotice) => updateMarket({ paymentNotice })}
+        />
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">

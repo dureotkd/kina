@@ -17,8 +17,8 @@ export const defaultSiteContent: SiteContent = {
     noticeTitle: "거래 전 확인",
     noticeBody:
       "모든 거래는 담당 상담원 확인 후 진행됩니다. 제3자 명의 입금, 사칭 계정, 대리 송금 요청은 처리하지 않습니다.",
-    kakaoId: "PL002",
-    kakaoUrl: "https://open.kakao.com/",
+    kakaoId: "badasp",
+    kakaoUrl: "https://open.kakao.com/o/sdXqVcGi",
   },
   navigation: [
     { label: "시세", href: "#rates" },
@@ -29,8 +29,7 @@ export const defaultSiteContent: SiteContent = {
   hero: {
     eyebrow: "",
     title: "아이온 키나 거래소",
-    subtitle:
-      "매입가와 매도가를 한 화면에서 확인하고, 서버별 판매 목록과 상담 흐름까지 한 번에 이어집니다.",
+    subtitle: "안전하고 신뢰할 수 있는 아이온2 거래소",
     primaryCta: "카카오톡 상담",
     secondaryCta: "판매 목록 보기",
     trustBadges: ["24시간 상담", "담당자 확인 거래", "서버별 시세 반영"],
@@ -44,7 +43,7 @@ export const defaultSiteContent: SiteContent = {
     enabled: true,
     title: "공지사항",
     body:
-      "안녕하세요! 아이온2 키나 거래소입니다. (키나 문의는 카카오톡 PL002 or 밑에 문의하기 클릭해주세요)\n\n3자사기 및 개인 기타 사기 방지를 위해 고지드립니다.\n\n본 사이트관리자는 거래 당사자 외 제3자의 행위로 발생한 문제에 대해\n어떠한 책임도 지지 않습니다.",
+      "안녕하세요! 아이온2 키나 거래소입니다. (키나 문의는 카카오톡 badasp or 밑에 문의하기 클릭해주세요)\n\n3자사기 및 개인 기타 사기 방지를 위해 고지드립니다.\n\n본 사이트관리자는 거래 당사자 외 제3자의 행위로 발생한 문제에 대해\n어떠한 책임도 지지 않습니다.",
     buttonLabel: "확인",
   },
   market: {
@@ -52,6 +51,7 @@ export const defaultSiteContent: SiteContent = {
     description: "시장 상황에 따라 실시간으로 조정되는 기준 시세입니다.",
     baseUnit: "100만 키나 기준",
     updatedAt: "방금 업데이트",
+    paymentNotice: "신용카드 · 핸드폰 · 상품권 결제 가능합니다",
     buy: {
       label: "키나 매입",
       price: "2,400원",

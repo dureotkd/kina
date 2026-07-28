@@ -10,6 +10,8 @@ import {
   Bus,
   CalendarDays,
   CheckCircle2,
+  Copy,
+  CreditCard,
   Eye,
   FileText,
   Home,
@@ -22,6 +24,7 @@ import {
   ShoppingBag,
   Store,
   User,
+  UserPlus,
   X,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -143,6 +146,7 @@ export function PublicExchange({
     view === "home" && content.noticeModal.enabled,
   );
   const [formMode, setFormMode] = useState<FormMode | null>(null);
+  const [contactOpen, setContactOpen] = useState(false);
   const [formValues, setFormValues] = useState<FormValues>(emptyForm);
   const [selectedEntry, setSelectedEntry] = useState<{
     type: CommunityBoardKey;
@@ -151,7 +155,9 @@ export function PublicExchange({
   const [submitting, setSubmitting] = useState(false);
   const [formMessage, setFormMessage] = useState("");
 
-  const contactHref = content.brand.kakaoUrl || "#";
+  const kakaoId = content.brand.kakaoId || "badasp";
+  const kakaoUrl =
+    content.brand.kakaoUrl || "https://open.kakao.com/o/sdXqVcGi";
 
   function openForm(mode: FormMode) {
     setFormValues(emptyForm);
@@ -221,14 +227,14 @@ export function PublicExchange({
       <SiteHeader
         content={content}
         view={view}
-        contactHref={contactHref}
+        onContact={() => setContactOpen(true)}
       />
 
       {view === "home" ? (
         <HomeView
           content={content}
           communityData={communityData}
-          contactHref={contactHref}
+          onContact={() => setContactOpen(true)}
           openDetail={openDetail}
         />
       ) : null}
@@ -236,7 +242,7 @@ export function PublicExchange({
       {view === "sales" ? (
         <SalesView
           entries={communityData.sales}
-          contactHref={contactHref}
+          onContact={() => setContactOpen(true)}
           onCreate={() => openForm("sales")}
         />
       ) : null}
@@ -244,7 +250,7 @@ export function PublicExchange({
       {view === "buses" ? (
         <BusesView
           entries={communityData.buses}
-          contactHref={contactHref}
+          onContact={() => setContactOpen(true)}
           onCreate={() => openForm("buses")}
           onDetail={(entry) => openDetail("buses", entry)}
         />
@@ -282,6 +288,14 @@ export function PublicExchange({
         />
       ) : null}
 
+      {contactOpen ? (
+        <ContactModal
+          kakaoId={kakaoId}
+          kakaoUrl={kakaoUrl}
+          onClose={() => setContactOpen(false)}
+        />
+      ) : null}
+
       {formMode ? (
         <EntryFormModal
           mode={formMode}
@@ -297,7 +311,7 @@ export function PublicExchange({
       {selectedEntry ? (
         <EntryDetailModal
           selected={selectedEntry}
-          contactHref={contactHref}
+          onContact={() => setContactOpen(true)}
           onClose={() => setSelectedEntry(null)}
           setCommunityData={setCommunityData}
           setSelectedEntry={setSelectedEntry}
@@ -310,11 +324,11 @@ export function PublicExchange({
 function SiteHeader({
   content,
   view,
-  contactHref,
+  onContact,
 }: {
   content: SiteContent;
   view: MarketplaceView;
-  contactHref: string;
+  onContact: () => void;
 }) {
   return (
     <header className="sticky top-0 z-40 border-b border-[#e1e5eb] bg-white/95 backdrop-blur">
@@ -341,9 +355,9 @@ function SiteHeader({
           </span>
         </Link>
 
-        <a
-          href={contactHref}
-          {...externalLinkProps(contactHref)}
+        <button
+          type="button"
+          onClick={onContact}
           className="inline-flex h-14 w-14 shrink-0 items-center justify-center"
           aria-label={content.support.kakaoLabel}
           title={content.support.kakaoLabel}
@@ -357,7 +371,7 @@ function SiteHeader({
           ) : (
             <MessageCircle size={28} className="text-[#19212d]" />
           )}
-        </a>
+        </button>
       </div>
 
       <nav className="border-t border-[#edf0f4] bg-white" aria-label="주요 메뉴">
@@ -406,46 +420,51 @@ function SiteHeader({
 function HomeView({
   content,
   communityData,
-  contactHref,
+  onContact,
   openDetail,
 }: {
   content: SiteContent;
   communityData: CommunityData;
-  contactHref: string;
+  onContact: () => void;
   openDetail: (type: CommunityBoardKey, entry: BoardEntry) => void;
 }) {
   return (
     <>
       <section className={`${shellClass} pb-5 pt-8`}>
-        <div className="grid gap-6 lg:grid-cols-[1fr_360px] lg:items-end">
-          <div>
-            <h1 className="brand-heading max-w-[650px]">
-              {content.hero.title}
-            </h1>
-            <p className="mt-4 max-w-[620px] whitespace-pre-line text-base font-semibold leading-7 text-[#626c7a]">
-              {content.hero.subtitle}
-            </p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {content.hero.trustBadges.map((badge) => (
-                <span
-                  key={badge}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-2 text-xs font-black text-[#4e5968] ring-1 ring-[#e2e6ec]"
-                >
-                  <CheckCircle2
-                    size={14}
-                    className="text-[#0f766e]"
-                    aria-hidden="true"
-                  />
-                  {badge}
-                </span>
-              ))}
-            </div>
+        <div>
+          <h1 className="brand-heading max-w-[650px]">{content.hero.title}</h1>
+          <p className="mt-4 max-w-[680px] whitespace-pre-line text-base font-semibold leading-7 text-[#626c7a]">
+            {content.hero.subtitle}
+          </p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            {content.hero.trustBadges.map((badge) => (
+              <span
+                key={badge}
+                className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-2 text-xs font-black text-[#4e5968] ring-1 ring-[#e2e6ec]"
+              >
+                <CheckCircle2
+                  size={14}
+                  className="text-[#0f766e]"
+                  aria-hidden="true"
+                />
+                {badge}
+              </span>
+            ))}
           </div>
+        </div>
 
-          <div className="grid grid-cols-2 gap-3">
-            <QuoteCard quote={content.market.buy} kind="buy" />
-            <QuoteCard quote={content.market.sell} kind="sell" />
-          </div>
+        <div className="mt-7 grid grid-cols-2 gap-3 sm:gap-4">
+          <QuoteCard quote={content.market.buy} kind="buy" />
+          <QuoteCard quote={content.market.sell} kind="sell" />
+        </div>
+
+        <div className="mt-3 flex min-h-14 items-center justify-center gap-3 rounded-lg border border-[#e5d7a5] bg-[#fff8dc] px-4 py-3 text-center text-sm font-black text-[#4a3d15] sm:text-base">
+          <CreditCard
+            size={21}
+            className="shrink-0 text-[#a8730d]"
+            aria-hidden="true"
+          />
+          <p>{content.market.paymentNotice}</p>
         </div>
       </section>
 
@@ -529,7 +548,7 @@ function HomeView({
             <SaleCard
               key={entry.id}
               entry={entry}
-              contactHref={entry.kakaoUrl || contactHref}
+              onContact={onContact}
             />
           ))}
         </div>
@@ -591,14 +610,14 @@ function HomeView({
               {content.support.description}
             </p>
           </div>
-          <a
-            href={contactHref}
-            {...externalLinkProps(contactHref)}
+          <button
+            type="button"
+            onClick={onContact}
             className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-lg bg-[#f6c453] px-5 text-sm font-black text-[#26200e]"
           >
             <MessageCircle size={17} aria-hidden="true" />
             카카오톡 문의
-          </a>
+          </button>
         </div>
       </section>
     </>
@@ -607,11 +626,11 @@ function HomeView({
 
 function SalesView({
   entries,
-  contactHref,
+  onContact,
   onCreate,
 }: {
   entries: SaleEntry[];
-  contactHref: string;
+  onContact: () => void;
   onCreate: () => void;
 }) {
   return (
@@ -630,11 +649,7 @@ function SalesView({
     >
       <div className="grid gap-3 sm:grid-cols-2">
         {entries.map((entry) => (
-          <SaleCard
-            key={entry.id}
-            entry={entry}
-            contactHref={entry.kakaoUrl || contactHref}
-          />
+          <SaleCard key={entry.id} entry={entry} onContact={onContact} />
         ))}
       </div>
       <EmptyState visible={entries.length === 0} label="등록된 판매글이 없습니다." />
@@ -644,12 +659,12 @@ function SalesView({
 
 function BusesView({
   entries,
-  contactHref,
+  onContact,
   onCreate,
   onDetail,
 }: {
   entries: BusEntry[];
-  contactHref: string;
+  onContact: () => void;
   onCreate: () => void;
   onDetail: (entry: BusEntry) => void;
 }) {
@@ -703,14 +718,14 @@ function BusesView({
                   <FileText size={16} aria-hidden="true" />
                   상세보기
                 </button>
-                <a
-                  href={entry.kakaoUrl || contactHref}
-                  {...externalLinkProps(entry.kakaoUrl || contactHref)}
+                <button
+                  type="button"
+                  onClick={onContact}
                   className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-[#f6c453] text-sm font-black text-[#2d260f]"
                 >
                   <MessageCircle size={16} aria-hidden="true" />
                   모집 문의
-                </a>
+                </button>
               </div>
             </div>
           </article>
@@ -975,10 +990,10 @@ function BoardPage({
 
 function SaleCard({
   entry,
-  contactHref,
+  onContact,
 }: {
   entry: SaleEntry;
-  contactHref: string;
+  onContact: () => void;
 }) {
   return (
     <article className={`${panelClass} p-5`}>
@@ -1005,14 +1020,14 @@ function SaleCard({
           {entry.views}
         </span>
       </div>
-      <a
-        href={contactHref}
-        {...externalLinkProps(contactHref)}
+      <button
+        type="button"
+        onClick={onContact}
         className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#19212d] text-sm font-black text-white"
       >
         <MessageCircle size={16} aria-hidden="true" />
         연락하기
-      </a>
+      </button>
     </article>
   );
 }
@@ -1219,13 +1234,13 @@ function EntryFormModal({
 
 function EntryDetailModal({
   selected,
-  contactHref,
+  onContact,
   onClose,
   setCommunityData,
   setSelectedEntry,
 }: {
   selected: { type: CommunityBoardKey; entry: BoardEntry };
-  contactHref: string;
+  onContact: () => void;
   onClose: () => void;
   setCommunityData: React.Dispatch<React.SetStateAction<CommunityData>>;
   setSelectedEntry: React.Dispatch<
@@ -1294,14 +1309,14 @@ function EntryDetailModal({
         <EntryDetailBody type={type} entry={entry} />
 
         {type === "buses" ? (
-          <a
-            href={(entry as BusEntry).kakaoUrl || contactHref}
-            {...externalLinkProps((entry as BusEntry).kakaoUrl || contactHref)}
+          <button
+            type="button"
+            onClick={onContact}
             className="mt-6 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#f6c453] text-sm font-black text-[#2d260f]"
           >
             <MessageCircle size={16} aria-hidden="true" />
             모집 문의
-          </a>
+          </button>
         ) : null}
 
         {type === "community" ? (
@@ -1469,12 +1484,12 @@ function ModalFrame({
 }) {
   return (
     <div
-      className="fixed inset-0 z-[90] flex items-center justify-center bg-[#111827]/55 px-4 py-6"
+      className="fixed inset-0 z-[90] flex items-center justify-center bg-[#10151d]/70 px-3 py-6 backdrop-blur-[2px] sm:px-4"
       role="dialog"
       aria-modal="true"
     >
       <div
-        className={`max-h-[92vh] w-full overflow-y-auto rounded-lg bg-white shadow-[0_24px_80px_rgba(0,0,0,0.3)] ${
+        className={`max-h-[92vh] w-full overflow-y-auto rounded-lg border border-white/20 bg-white shadow-[0_28px_90px_rgba(0,0,0,0.38)] ${
           wide ? "max-w-[720px]" : "max-w-[600px]"
         }`}
       >
@@ -1494,6 +1509,109 @@ function ModalFrame({
           </button>
         </div>
         {children}
+      </div>
+    </div>
+  );
+}
+
+function ContactModal({
+  kakaoId,
+  kakaoUrl,
+  onClose,
+}: {
+  kakaoId: string;
+  kakaoUrl: string;
+  onClose: () => void;
+}) {
+  const [copied, setCopied] = useState(false);
+
+  async function copyKakaoId() {
+    try {
+      await navigator.clipboard.writeText(kakaoId);
+      setCopied(true);
+    } catch {
+      setCopied(false);
+    }
+  }
+
+  return (
+    <div
+      className="fixed inset-0 z-[110] flex items-center justify-center bg-[#10151d]/70 px-4 py-8 backdrop-blur-[2px]"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="contact-modal-title"
+    >
+      <div className="w-full max-w-[440px] overflow-hidden rounded-lg border border-[#e5c942] bg-white shadow-[0_28px_90px_rgba(0,0,0,0.38)]">
+        <div className="relative border-b border-[#eadf9d] bg-[#fee500] px-6 pb-6 pt-7 text-center">
+          <button
+            type="button"
+            onClick={onClose}
+            className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full text-[#332d00] transition hover:bg-black/10"
+            aria-label="닫기"
+            title="닫기"
+          >
+            <X size={21} aria-hidden="true" />
+          </button>
+          <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-[#2f2a00] text-[#fee500]">
+            <MessageCircle size={29} aria-hidden="true" />
+          </div>
+          <h2
+            id="contact-modal-title"
+            className="mt-4 text-2xl font-black text-[#282300]"
+          >
+            카카오톡 상담
+          </h2>
+          <p className="mt-2 text-sm font-bold text-[#665b0a]">
+            거래 문의는 카카오톡 친구 추가 후 진행됩니다.
+          </p>
+        </div>
+
+        <div className="px-5 py-6 sm:px-7">
+          <div className="rounded-lg border border-[#e2e6ec] bg-[#f7f8fa] p-4">
+            <div className="flex items-center gap-3">
+              <UserPlus
+                size={21}
+                className="shrink-0 text-[#3f4752]"
+                aria-hidden="true"
+              />
+              <div className="min-w-0 flex-1">
+                <p className="text-xs font-black text-[#7b8490]">카카오톡 ID</p>
+                <p className="mt-1 select-all text-2xl font-black text-[#171c24]">
+                  {kakaoId}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={copyKakaoId}
+                className="inline-flex h-10 shrink-0 items-center gap-1.5 rounded-lg border border-[#d8dde4] bg-white px-3 text-xs font-black text-[#3e4651] transition hover:bg-[#f0f2f5]"
+                title="카카오톡 ID 복사"
+              >
+                {copied ? (
+                  <CheckCircle2 size={16} aria-hidden="true" />
+                ) : (
+                  <Copy size={16} aria-hidden="true" />
+                )}
+                {copied ? "복사됨" : "ID 복사"}
+              </button>
+            </div>
+          </div>
+
+          <p className="mt-5 text-center text-lg font-black leading-7 text-[#252b34]">
+            <strong className="text-[#0f766e]">{kakaoId}</strong>
+            <span className="mx-2 text-[#a3aab4]">&lt;</span>
+            카카오톡 친구추가 후 문의하기!
+          </p>
+
+          <a
+            href={kakaoUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-6 inline-flex h-[54px] w-full items-center justify-center gap-2 rounded-lg bg-[#fee500] text-base font-black text-[#272300] transition hover:bg-[#f4dc00]"
+          >
+            <MessageCircle size={18} aria-hidden="true" />
+            카카오 문의하기
+          </a>
+        </div>
       </div>
     </div>
   );
@@ -1600,17 +1718,23 @@ function QuoteCard({
   const Icon = kind === "buy" ? ArrowDown : ArrowUp;
   const styles =
     kind === "buy"
-      ? "border-[#cde9e1] bg-[#f0faf7] text-[#0f766e]"
-      : "border-[#f0d5d8] bg-[#fff5f6] text-[#bd3d49]";
+      ? "border-[#8fd1c0] bg-[#effaf7] text-[#0b6b61] shadow-[0_8px_24px_rgba(15,118,110,0.10)]"
+      : "border-[#e9aab0] bg-[#fff3f4] text-[#b83340] shadow-[0_8px_24px_rgba(189,61,73,0.10)]";
 
   return (
-    <article className={`rounded-lg border p-4 ${styles}`}>
-      <div className="flex items-center gap-2 text-sm font-black">
-        <Icon size={17} aria-hidden="true" />
+    <article
+      className={`flex min-h-[168px] flex-col justify-center rounded-lg border-2 p-5 sm:min-h-[190px] sm:p-7 ${styles}`}
+    >
+      <div className="flex items-center gap-2 text-base font-black sm:text-xl">
+        <Icon size={21} aria-hidden="true" />
         {quote.label}
       </div>
-      <p className="mt-3 text-2xl font-black">{quote.price}</p>
-      <p className="mt-1 text-xs font-bold opacity-70">{quote.unit}</p>
+      <p className="mt-4 whitespace-nowrap text-3xl font-black sm:text-5xl">
+        {quote.price}
+      </p>
+      <p className="mt-2 text-xs font-black opacity-70 sm:text-sm">
+        {quote.unit}
+      </p>
     </article>
   );
 }
@@ -1797,13 +1921,4 @@ function formatDate(value: string) {
     month: "2-digit",
     day: "2-digit",
   }).format(date);
-}
-
-function externalLinkProps(href: string) {
-  if (!href.startsWith("http")) return {};
-
-  return {
-    target: "_blank",
-    rel: "noreferrer",
-  };
 }

@@ -84,6 +84,7 @@ export type SiteContent = {
     description: string;
     baseUnit: string;
     updatedAt: string;
+    paymentNotice: string;
     buy: PriceQuote;
     sell: PriceQuote;
     notes: string[];
