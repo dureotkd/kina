@@ -6,7 +6,23 @@ export const defaultLogoUrl =
 export const defaultKakaoImageUrl =
   "/kakao-talk-icon-transparent.png";
 
+const defaultSocialImageUrl =
+  "https://fizz-download.playnccdn.com/download/v2/buckets/purple/files/19912837684-7f24d48d-b1c8-422a-8a36-f6009a287f32";
+
 export const defaultSiteContent: SiteContent = {
+  seo: {
+    title: "아이온2 키나 거래소 | 시세 · 판매 · 구매",
+    description:
+      "아이온2 키나 실시간 시세 확인, 안전한 거래, 대리판매 서비스를 제공합니다. 월드거래소, 일반거래소 시세를 한눈에 확인하세요.",
+    keywords: ["아이온2", "아이온2 키나", "키나 거래소", "아이온2 시세"],
+    ogTitle: "아이온2 키나 거래소 | 시세 · 판매 · 구매",
+    ogDescription:
+      "아이온2 키나 실시간 시세 확인, 안전한 거래, 대리판매 서비스를 제공합니다. 월드거래소, 일반거래소 시세를 한눈에 확인하세요.",
+    ogImageUrl: defaultSocialImageUrl,
+    ogImageAlt: "아이온2 키나 거래소",
+    ogImageWidth: 3840,
+    ogImageHeight: 2160,
+  },
   brand: {
     name: "아이온2 키나 거래소",
     shortName: "AION2 KINA",
@@ -40,7 +56,7 @@ export const defaultSiteContent: SiteContent = {
     ],
   },
   noticeModal: {
-    enabled: true,
+    enabled: false,
     title: "공지사항",
     body:
       "안녕하세요! 아이온2 키나 거래소입니다. (키나 문의는 카카오톡 badasp or 밑에 문의하기 클릭해주세요)\n\n3자사기 및 개인 기타 사기 방지를 위해 고지드립니다.\n\n본 사이트관리자는 거래 당사자 외 제3자의 행위로 발생한 문제에 대해\n어떠한 책임도 지지 않습니다.",

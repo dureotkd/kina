@@ -48,7 +48,20 @@ export type NoticeModal = {
   buttonLabel: string;
 };
 
+export type SeoSettings = {
+  title: string;
+  description: string;
+  keywords: string[];
+  ogTitle: string;
+  ogDescription: string;
+  ogImageUrl: string;
+  ogImageAlt: string;
+  ogImageWidth: number;
+  ogImageHeight: number;
+};
+
 export type SiteContent = {
+  seo: SeoSettings;
   brand: {
     name: string;
     shortName: string;

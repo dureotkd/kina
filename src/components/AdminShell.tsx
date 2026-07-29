@@ -12,6 +12,7 @@ import {
   MessageCircle,
   Plus,
   Save,
+  Search,
   Settings2,
   Store,
   Trash2,
@@ -42,6 +43,7 @@ type AdminShellProps = {
 
 type TabId =
   | "brand"
+  | "seo"
   | "market"
   | "sellers"
   | "services"
@@ -50,6 +52,7 @@ type TabId =
 
 const tabs: { id: TabId; label: string; icon: LucideIcon }[] = [
   { id: "brand", label: "기본", icon: LayoutDashboard },
+  { id: "seo", label: "SEO 설정", icon: Search },
   { id: "market", label: "시세", icon: Store },
   { id: "sellers", label: "판매", icon: ListPlus },
   { id: "services", label: "서비스", icon: Settings2 },
@@ -181,6 +184,13 @@ export function AdminShell({
     setContent((current) => ({
       ...current,
       noticeModal: { ...current.noticeModal, ...patch },
+    }));
+  }
+
+  function updateSeo(patch: Partial<SiteContent["seo"]>) {
+    setContent((current) => ({
+      ...current,
+      seo: { ...current.seo, ...patch },
     }));
   }
 
@@ -439,6 +449,14 @@ export function AdminShell({
               uploading={uploading}
             />
           ) : null}
+          {activeTab === "seo" ? (
+            <SeoPanel
+              content={content}
+              updateSeo={updateSeo}
+              uploadImage={uploadImage}
+              uploading={uploading}
+            />
+          ) : null}
           {activeTab === "market" ? (
             <MarketPanel
               content={content}
@@ -651,6 +669,111 @@ function BrandPanel({
         value={toLines(content.hero.trustBadges)}
         onChange={(value) => updateHero({ trustBadges: fromLines(value) })}
       />
+    </div>
+  );
+}
+
+function SeoPanel({
+  content,
+  updateSeo,
+  uploadImage,
+  uploading,
+}: {
+  content: SiteContent;
+  updateSeo: (patch: Partial<SiteContent["seo"]>) => void;
+  uploadImage: (file: File, onUrl: (url: string) => void) => Promise<void>;
+  uploading: boolean;
+}) {
+  const { seo } = content;
+
+  return (
+    <div className="grid gap-8">
+      <PanelHeader
+        title="SEO 설정"
+        description="검색 결과와 링크 공유 미리보기에 표시되는 정보"
+      />
+
+      <div className="grid gap-4">
+        <TextInput
+          label="페이지 제목"
+          value={seo.title}
+          onChange={(title) => updateSeo({ title })}
+        />
+        <TextArea
+          label="페이지 설명"
+          value={seo.description}
+          onChange={(description) => updateSeo({ description })}
+        />
+        <TextArea
+          label="검색 키워드"
+          value={toLines(seo.keywords)}
+          onChange={(value) => updateSeo({ keywords: fromLines(value) })}
+        />
+      </div>
+
+      <PanelHeader
+        title="공유 미리보기"
+        description="카카오톡과 SNS에서 링크를 공유할 때 사용하는 Open Graph 정보"
+      />
+
+      <div className="grid gap-4 md:grid-cols-2">
+        <TextInput
+          label="OG 제목"
+          value={seo.ogTitle}
+          onChange={(ogTitle) => updateSeo({ ogTitle })}
+        />
+        <TextArea
+          label="OG 설명"
+          value={seo.ogDescription}
+          onChange={(ogDescription) => updateSeo({ ogDescription })}
+        />
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_240px]">
+        <ImageField
+          label="OG 대표 이미지"
+          value={seo.ogImageUrl}
+          alt={seo.ogImageAlt}
+          uploading={uploading}
+          onUrl={(ogImageUrl) => updateSeo({ ogImageUrl })}
+          onAlt={(ogImageAlt) => updateSeo({ ogImageAlt })}
+          uploadImage={uploadImage}
+        />
+        <div className="grid content-start gap-4 rounded-lg bg-[#f8f4eb] p-4">
+          <NumberInput
+            label="이미지 너비"
+            value={seo.ogImageWidth}
+            onChange={(ogImageWidth) => updateSeo({ ogImageWidth })}
+          />
+          <NumberInput
+            label="이미지 높이"
+            value={seo.ogImageHeight}
+            onChange={(ogImageHeight) => updateSeo({ ogImageHeight })}
+          />
+          <p className="text-xs font-semibold leading-5 text-[#766b58]">
+            업로드한 원본 이미지의 실제 픽셀 크기를 입력하세요.
+          </p>
+        </div>
+      </div>
+
+      <div className="overflow-hidden rounded-lg border border-[#d8cfbd] bg-white">
+        {seo.ogImageUrl ? (
+          <img
+            src={seo.ogImageUrl}
+            alt={seo.ogImageAlt}
+            className="aspect-video w-full object-cover"
+          />
+        ) : null}
+        <div className="p-4">
+          <p className="text-xs font-black text-[#8b5f10]">공유 미리보기</p>
+          <h3 className="mt-2 text-lg font-black leading-6 text-[#181512]">
+            {seo.ogTitle || seo.title}
+          </h3>
+          <p className="mt-2 text-sm font-semibold leading-6 text-[#655c4e]">
+            {seo.ogDescription || seo.description}
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
@@ -1219,6 +1342,35 @@ function TextInput({
         className={inputClass}
         value={value}
         onChange={(event) => onChange(event.target.value)}
+      />
+    </label>
+  );
+}
+
+function NumberInput({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: number;
+  onChange: (value: number) => void;
+}) {
+  return (
+    <label className="block">
+      <span className="text-sm font-black text-[#4f473b]">{label}</span>
+      <input
+        className={inputClass}
+        type="number"
+        min="1"
+        step="1"
+        value={value}
+        onChange={(event) => {
+          const nextValue = Number(event.target.value);
+          if (Number.isFinite(nextValue) && nextValue > 0) {
+            onChange(Math.round(nextValue));
+          }
+        }}
       />
     </label>
   );

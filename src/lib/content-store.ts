@@ -69,6 +69,13 @@ function normalizeContent(content: Partial<SiteContent>): SiteContent {
   return {
     ...defaultSiteContent,
     ...content,
+    seo: {
+      ...defaultSiteContent.seo,
+      ...content.seo,
+      keywords: content.seo?.keywords?.length
+        ? content.seo.keywords
+        : defaultSiteContent.seo.keywords,
+    },
     brand: {
       ...defaultSiteContent.brand,
       ...content.brand,
