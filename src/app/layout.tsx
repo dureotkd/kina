@@ -23,6 +23,9 @@ export async function generateMetadata(): Promise<Metadata> {
     title: seo.title,
     description: seo.description,
     keywords: seo.keywords,
+    verification: {
+      google: "hbChHAXSDgJVsJiq7H47vX8BdTdd31qefctm5uuEpp0",
+    },
     openGraph: {
       title: seo.ogTitle || seo.title,
       description: seo.ogDescription || seo.description,
