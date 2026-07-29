@@ -529,6 +529,70 @@ function HomeView({
       </section>
 
       <section className={`${shellClass} pb-7`}>
+        <div className="border-y border-[#dfe4ea] py-6">
+          <p className="text-xs font-black text-[#0f766e]">아이온2 거래 안내</p>
+          <h2 className="mt-2 text-2xl font-black text-[#19212d]">
+            아이온2 키나 시세와 서버별 거래소 정보
+          </h2>
+          <p className="mt-3 max-w-[800px] text-sm font-semibold leading-7 text-[#626c7a]">
+            아이온2 키나 거래에 필요한 매입가와 매도가를 비교하고, 서버별
+            판매·구매 목록을 한곳에서 확인할 수 있습니다. 거래 전에는 상담을
+            통해 수량과 가격을 다시 확인하세요.
+          </p>
+
+          <div className="mt-6 grid gap-5 md:grid-cols-3 md:gap-0">
+            <div className="md:pr-5">
+              <h3 className="text-base font-black text-[#19212d]">
+                아이온2 키나 시세
+              </h3>
+              <p className="mt-2 text-sm font-semibold leading-6 text-[#6d7684]">
+                월드 거래소와 일반 거래소의 기준 시세를 비교해 판매와 구매
+                시점을 판단할 수 있습니다.
+              </p>
+              <Link
+                href="/resale"
+                className="mt-3 inline-flex text-sm font-black text-[#0f766e]"
+              >
+                키나 거래 목록 보기
+              </Link>
+            </div>
+
+            <div className="border-[#dfe4ea] md:border-x md:px-5">
+              <h3 className="text-base font-black text-[#19212d]">
+                천족·마족 서버별 거래
+              </h3>
+              <p className="mt-2 text-sm font-semibold leading-6 text-[#6d7684]">
+                아이온2 천족과 아이온2 마족의 서버별 판매 정보와 육성 모집
+                내용을 확인할 수 있습니다.
+              </p>
+              <Link
+                href="/bus"
+                className="mt-3 inline-flex text-sm font-black text-[#4f5fc7]"
+              >
+                육성버스 확인하기
+              </Link>
+            </div>
+
+            <div className="md:pl-5">
+              <h3 className="text-base font-black text-[#19212d]">
+                안전한 아이온2 거래소
+              </h3>
+              <p className="mt-2 text-sm font-semibold leading-6 text-[#6d7684]">
+                공지사항과 사기 제보를 먼저 확인하고, 제3자 입금이나 사칭
+                계정이 의심되면 거래를 중단하세요.
+              </p>
+              <Link
+                href="/scammers"
+                className="mt-3 inline-flex text-sm font-black text-[#c54249]"
+              >
+                사기 제보 확인하기
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className={`${shellClass} pb-7`}>
         <div className="mb-4 flex items-end justify-between gap-4">
           <SectionHeading
             eyebrow="실시간 등록"

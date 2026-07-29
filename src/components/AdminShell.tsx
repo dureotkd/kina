@@ -694,6 +694,18 @@ function SeoPanel({
       />
 
       <div className="grid gap-4">
+        <div className="grid gap-4 md:grid-cols-2">
+          <TextInput
+            label="사이트 이름"
+            value={seo.siteName}
+            onChange={(siteName) => updateSeo({ siteName })}
+          />
+          <TextInput
+            label="대표 주소 (Canonical)"
+            value={seo.canonicalUrl}
+            onChange={(canonicalUrl) => updateSeo({ canonicalUrl })}
+          />
+        </div>
         <TextInput
           label="페이지 제목"
           value={seo.title}

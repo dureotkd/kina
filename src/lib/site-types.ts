@@ -49,6 +49,8 @@ export type NoticeModal = {
 };
 
 export type SeoSettings = {
+  siteName: string;
+  canonicalUrl: string;
   title: string;
   description: string;
   keywords: string[];

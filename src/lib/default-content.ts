@@ -11,13 +11,25 @@ const defaultSocialImageUrl =
 
 export const defaultSiteContent: SiteContent = {
   seo: {
+    siteName: "아이온2 키나 거래소",
+    canonicalUrl: "https://www.xn--v69av2fwuhz41a.com/",
     title: "아이온2 키나 거래소 | 시세 · 판매 · 구매",
     description:
-      "아이온2 키나 실시간 시세 확인, 안전한 거래, 대리판매 서비스를 제공합니다. 월드거래소, 일반거래소 시세를 한눈에 확인하세요.",
-    keywords: ["아이온2", "아이온2 키나", "키나 거래소", "아이온2 시세"],
+      "아이온2 키나 거래소에서 실시간 키나 시세, 서버별 판매·구매 정보, 천족·마족 거래 게시판과 안전한 상담을 확인하세요.",
+    keywords: [
+      "키나거래소",
+      "아이온2거래",
+      "아이온2키나거래",
+      "아이온2거래소",
+      "아이온2키나시세",
+      "아이온2 시세별거래소",
+      "아이온2 천족",
+      "아이온2마족",
+      "아이온거래소",
+    ],
     ogTitle: "아이온2 키나 거래소 | 시세 · 판매 · 구매",
     ogDescription:
-      "아이온2 키나 실시간 시세 확인, 안전한 거래, 대리판매 서비스를 제공합니다. 월드거래소, 일반거래소 시세를 한눈에 확인하세요.",
+      "아이온2 실시간 키나 시세와 서버별 판매·구매 정보를 확인하고 안전하게 거래하세요.",
     ogImageUrl: defaultSocialImageUrl,
     ogImageAlt: "아이온2 키나 거래소",
     ogImageWidth: 3840,
